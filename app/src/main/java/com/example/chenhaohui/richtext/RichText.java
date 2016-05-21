@@ -108,7 +108,7 @@ public class RichText extends TextView {
 
         public CustomLinkMovementMethod listener(OnTextViewClickListener listener){
             onTextViewClickListener = listener;
-            return this;
+            return sInstance;
         }
         private static Context movementContext;
         private static CustomLinkMovementMethod sInstance;
