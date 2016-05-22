@@ -5,6 +5,8 @@ A rich TextView for Android,it can hold the pictures loading and some normal tag
 Using [Volley Library](sdsd) in picture loading part;
 
 ##ScreenShot
+![](https://github.com/moonChenHaohui/blog/blob/gh-pages/image/richtext/reflresh.gif)
+![](https://github.com/moonChenHaohui/blog/blob/gh-pages/image/richtext/Screenshot_20160522-193401.png)
 
 ## Setup
 
@@ -53,8 +55,7 @@ Add the com.github.moon.RichText to your layout XML file.
     </ScrollView>
 the best way is add a ScrollView around RichText
     
-**init**
-
+**Code**
 
 
 **1.realize OnTextViewClickListener**  
@@ -78,7 +79,7 @@ you should realize the listener for url link and pictures link : <code>OnTextVie
         
 
 **2.realize loadAdapter**  
-realize loadAdapter you can replace the loading and error pictures when loading if have pictures. 
+realize loadAdapter you can replace the loading and error pictures when loading if textView have pictures. 
  
         richText.setImageLoadAdapter(new HtmlRemoteImageGetter.Adapter() {
             @Override
