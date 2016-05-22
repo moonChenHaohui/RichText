@@ -2,7 +2,7 @@
 
 A rich TextView for Android,it can hold the pictures loading and some normal tags in TextView.
 
-Using [Volley Library](sdsd) in picture loading part;
+Using [Volley Library](https://android.googlesource.com/platform/frameworks/volley) in picture loading part;
 
 ##ScreenShot
 ![](https://github.com/moonChenHaohui/blog/blob/gh-pages/image/richtext/reflresh.gif)
@@ -99,5 +99,5 @@ use this function to setText,otherwise it does not work
 		richText.setRichText(info);
 	
 ## Other
-if you like this library，please give me an star.
+if you like this library，please give me a star.
 	
