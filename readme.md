@@ -6,7 +6,6 @@ Using [Volley Library](sdsd) in picture loading part;
 
 ##ScreenShot
 ![](https://github.com/moonChenHaohui/blog/blob/gh-pages/image/richtext/reflresh.gif)
-![](https://github.com/moonChenHaohui/blog/blob/gh-pages/image/richtext/Screenshot_20160522-193401.png)
 
 ## Setup
 
