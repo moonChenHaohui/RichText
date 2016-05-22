@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-package com.example.chenhaohui.richtext;
+package com.github.moon;
 
 import android.text.Editable;
 import android.text.Html;
