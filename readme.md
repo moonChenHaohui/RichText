@@ -7,10 +7,24 @@ Using [Volley Library](https://android.googlesource.com/platform/frameworks/voll
 ##ScreenShot
 ![](https://github.com/moonChenHaohui/blog/blob/gh-pages/image/richtext/reflresh.gif)
 
-## Setup
+## How to use
 
-**Maven**
 
+
+
+Step 1. Add it in your root build.gradle at the end of repositories
+
+	repositories {
+			maven { url "https://jitpack.io" }
+	}
+
+Step 2. Add the dependency
+
+	dependencies {
+	        compile 'com.github.moonChenHaohui:android_richtext:2.0'
+	}
+	
+**if you use Maven**
 
     <repositories>
 		<repository>
@@ -26,22 +40,8 @@ Using [Volley Library](https://android.googlesource.com/platform/frameworks/voll
 	    <version>2.0</version>
 	</dependency>
 
-**Gradle**
 
-	repositories {
-			maven { url "https://jitpack.io" }
-	}
-
-	dependencies {
-	        compile 'com.github.moonChenHaohui:android_richtext:2.0'
-	}
-
-##Usage
-
-**XML** 
-
-
-Add the com.github.moon.RichText to your layout XML file.
+Step 3. Add the com.github.moon.RichText to your layout XML file.
 
 	<ScrollView
         android:layout_width="match_parent"
@@ -52,18 +52,16 @@ Add the com.github.moon.RichText to your layout XML file.
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </ScrollView>
-the best way is add a ScrollView around RichText
+* the best way is add a ScrollView around RichText
     
-**Code**
+Step 4. realize OnTextViewClickListener   
 
-
-**1.realize OnTextViewClickListener**  
-you should realize the listener for url link and pictures link : <code>OnTextViewClickListener</code> ,so that you can hold the click functions.  
+* you should realize the listener for url link and pictures link : <code>OnTextViewClickListener</code> ,so that you can hold the click functions.  
 
 
 
 
-	richText.setOnTextViewClickListener(new OnTextViewClickListener() {
+		richText.setOnTextViewClickListener(new OnTextViewClickListener() {
             @Override
             public void imageClicked(ArrayList<String> arrayList, int i) {
                 toast("click image,url:" + arrayList.get(i));
@@ -77,8 +75,8 @@ you should realize the listener for url link and pictures link : <code>OnTextVie
         });
         
 
-**2.realize loadAdapter**  
-realize loadAdapter you can replace the loading and error pictures when loading if textView have pictures. 
+Step 5. realize loadAdapter(not necessary!)  
+* realize loadAdapter you can replace the loading and error pictures when loading if textView have pictures. 
  
         richText.setImageLoadAdapter(new HtmlRemoteImageGetter.Adapter() {
             @Override
@@ -91,10 +89,10 @@ realize loadAdapter you can replace the loading and error pictures when loading 
                 return getDrawable(R.mipmap.ic_launcher);
             }
         });
-if you don't care this part ,you can ignore that.
+* if you don't care this part ,you can ignore that.
         
-**3 .setText**  
-use this function to setText,otherwise it does not work
+Step 6. setText**  
+* use this function to setText,otherwise it does not work
 
 		richText.setRichText(info);
 	
