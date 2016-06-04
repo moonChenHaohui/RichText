@@ -1,35 +1,30 @@
-# Rich TextView
+# 富文本TextView
 
-A rich TextView for Android,it can hold the pictures loading and some normal tags in TextView.
+Android 富文本解析器，可以处理TextView中的图片加载、常见的网页tags。
 
-Using [Volley Library](https://android.googlesource.com/platform/frameworks/volley) in picture loading part;
+使用 [Volley Library](https://android.googlesource.com/platform/frameworks/volley) 实现图片加载。
 
-
-##[中文ReadME](/readme-CN.md)
-
-
-
-##ScreenShot
+##截图
 ![](https://github.com/moonChenHaohui/blog/blob/gh-pages/image/richtext/reflresh.gif)
 
-## How to use
+## 如何使用
 
 
 
 
-Step 1. Add it in your root build.gradle at the end of repositories
+Step 1. 在 build.gradle 中 repositories加入：
 
 	repositories {
 			maven { url "https://jitpack.io" }
 	}
 
-Step 2. Add the dependency
+Step 2. 加入依赖：
 
 	dependencies {
 	        compile 'com.github.moonChenHaohui:android_richtext:2.0'
 	}
 	
-**if you use Maven**
+**使用 Maven**
 
     <repositories>
 		<repository>
@@ -46,7 +41,7 @@ Step 2. Add the dependency
 	</dependency>
 
 
-Step 3. Add the com.github.moon.RichText to your layout XML file.
+Step 3. 添加 com.github.moon.RichText 到XML中
 
 	<ScrollView
         android:layout_width="match_parent"
@@ -57,12 +52,11 @@ Step 3. Add the com.github.moon.RichText to your layout XML file.
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </ScrollView>
-* the best way is add a ScrollView around RichText
+* 最好的方式是外部包裹一个ScrollView。
     
-Step 4. realize OnTextViewClickListener   
+Step 4. 实现点击事件： OnTextViewClickListener   
 
-* you should realize the listener for url link and pictures link : <code>OnTextViewClickListener</code> ,so that you can hold the click functions.  
-
+* 你应该实现这个方法，去代理文字、图片的点击 : <code>OnTextViewClickListener</code>
 
 
 
@@ -80,8 +74,8 @@ Step 4. realize OnTextViewClickListener
         });
         
 
-Step 5. realize loadAdapter(not necessary!)  
-* realize loadAdapter you can replace the loading and error pictures when loading if textView have pictures. 
+Step 5. 实现图片加载的适配 （不是必须的）
+* 实现 loadAdapter 你可以替换在图片加载中的图片以及在加载失败后的图片。
  
         richText.setImageLoadAdapter(new HtmlRemoteImageGetter.Adapter() {
             @Override
@@ -94,13 +88,13 @@ Step 5. realize loadAdapter(not necessary!)
                 return getDrawable(R.mipmap.ic_launcher);
             }
         });
-* if you don't care this part ,you can ignore that.
+* 如果你不关心这部分，你可以忽略它。
         
 Step 6. setText**  
-* use this function to setText,otherwise it does not work
+* 请使用richText.setRichText来设置文本，默认会使用HTML.fromHtml来处理。请不要使用setText方法，否则不会生效。
 
 		richText.setRichText(info);
 	
 ## Other
-if you like this library，please give me a star.
+如果你喜欢这个项目，请给我一个star.
 	
