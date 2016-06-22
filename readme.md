@@ -26,7 +26,7 @@ Step 1. Add it in your root build.gradle at the end of repositories
 Step 2. Add the dependency
 
 	dependencies {
-	        compile 'com.github.moonChenHaohui:android_richtext:2.0'
+	        compile 'com.github.moonChenHaohui:android_richtext:2.3'
 	}
 	
 **if you use Maven**
@@ -42,7 +42,7 @@ Step 2. Add the dependency
 	<dependency>
 	    <groupId>com.github.moonChenHaohui</groupId>
 	    <artifactId>android_richtext</artifactId>
-	    <version>2.0</version>
+	    <version>2.3</version>
 	</dependency>
 
 
@@ -59,47 +59,43 @@ Step 3. Add the com.github.moon.RichText to your layout XML file.
     </ScrollView>
 * the best way is add a ScrollView around RichText
     
-Step 4. realize OnTextViewClickListener   
+Step 4. realize some setting
 
-* you should realize the listener for url link and pictures link : <code>OnTextViewClickListener</code> ,so that you can hold the click functions.  
+the necessary
 
-
-
-
-		richText.setOnTextViewClickListener(new OnTextViewClickListener() {
+		//necessary
+		textViewClickListener(new OnTextViewClickListener() {
             @Override
             public void imageClicked(ArrayList<String> arrayList, int i) {
-                toast("click image,url:" + arrayList.get(i));
-
+                //do click
             }
 
             @Override
-            public void textLinkClicked(String s) {
-                toast("click link ,url:" + s);
-            }
-        });
-        
+            public void textLinkClicked(String url) {
+                //do click
 
-Step 5. realize loadAdapter(not necessary!)  
-* realize loadAdapter you can replace the loading and error pictures when loading if textView have pictures. 
- 
-        richText.setImageLoadAdapter(new HtmlRemoteImageGetter.Adapter() {
+            }
+        })
+        //necessary
+		.text("<html><img src='1.png'/></html>");
+		
+the optional	
+	
+        //optional
+        .imageLoadAdapter(new MoonHtmlRemoteImageGetter.Adapter() {
             @Override
             public Drawable getDefaultDrawable() {
-                return getDrawable(R.mipmap.load);
-            }
+                return ContextCompat.getDrawable(ArticleActivity.this,R.drawable.image_bg);
+            }            
 
             @Override
             public Drawable getErrorDrawable() {
-                return getDrawable(R.mipmap.ic_launcher);
+                return ContextCompat.getDrawable(ArticleActivity.this,R.drawable.image_bg);
             }
-        });
-* if you don't care this part ,you can ignore that.
+        })
+        //optional
+        .fullImage(true) //is all images adapter screen.   
         
-Step 6. setText**  
-* use this function to setText,otherwise it does not work
-
-		richText.setRichText(info);
 	
 ## Other
 if you like this library，please give me a star.

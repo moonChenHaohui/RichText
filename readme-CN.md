@@ -54,46 +54,43 @@ Step 3. 添加 com.github.moon.RichText 到XML中
     </ScrollView>
 * 最好的方式是外部包裹一个ScrollView。
     
-Step 4. 实现点击事件： OnTextViewClickListener   
+Step 4. 使用
 
-* 你应该实现这个方法，去代理文字、图片的点击 : <code>OnTextViewClickListener</code>
+必须实现：
 
-
-
-		richText.setOnTextViewClickListener(new OnTextViewClickListener() {
+		//necessary
+		textViewClickListener(new OnTextViewClickListener() {
             @Override
             public void imageClicked(ArrayList<String> arrayList, int i) {
-                toast("click image,url:" + arrayList.get(i));
-
+                //do click
             }
 
             @Override
-            public void textLinkClicked(String s) {
-                toast("click link ,url:" + s);
-            }
-        });
-        
+            public void textLinkClicked(String url) {
+                //do click
 
-Step 5. 实现图片加载的适配 （不是必须的）
-* 实现 loadAdapter 你可以替换在图片加载中的图片以及在加载失败后的图片。
- 
-        richText.setImageLoadAdapter(new HtmlRemoteImageGetter.Adapter() {
+            }
+        })
+        //necessary
+		.text("<html><img src='1.png'/></html>");
+		
+可选项：
+	
+        //optional
+        .imageLoadAdapter(new MoonHtmlRemoteImageGetter.Adapter() {
             @Override
             public Drawable getDefaultDrawable() {
-                return getDrawable(R.mipmap.load);
-            }
+                return ContextCompat.getDrawable(ArticleActivity.this,R.drawable.image_bg);
+            }            
 
             @Override
             public Drawable getErrorDrawable() {
-                return getDrawable(R.mipmap.ic_launcher);
+                return ContextCompat.getDrawable(ArticleActivity.this,R.drawable.image_bg);
             }
-        });
-* 如果你不关心这部分，你可以忽略它。
+        })
+        //optional
+        .fullImage(true) //图片占满全屏  
         
-Step 6. setText**  
-* 请使用richText.setRichText来设置文本，默认会使用HTML.fromHtml来处理。请不要使用setText方法，否则不会生效。
-
-		richText.setRichText(info);
 	
 ## Other
 如果你喜欢这个项目，请给我一个star.
