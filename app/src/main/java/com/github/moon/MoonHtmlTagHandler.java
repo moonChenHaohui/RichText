@@ -37,7 +37,7 @@ import java.util.Stack;
 /**
  * Some parts of this code are based on android.text.Html
  */
-public class HtmlTagHandler implements Html.TagHandler {
+public class MoonHtmlTagHandler implements Html.TagHandler {
     /**
      * Keeps track of lists (ol, ul). On bottom of Stack is the outermost list
      * and on top of Stack is the most nested list

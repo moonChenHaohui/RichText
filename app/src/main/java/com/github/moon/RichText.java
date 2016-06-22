@@ -2,8 +2,6 @@ package com.github.moon;
 
 import android.content.Context;
 import android.text.Html;
-import android.text.Layout;
-import android.text.Selection;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -14,6 +12,8 @@ import android.text.style.URLSpan;
 import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.github.moon.listener.OnTextViewClickListener;
@@ -23,13 +23,14 @@ import java.util.ArrayList;
 /**
  * Created by moon on 15/11/29.
  */
-public class RichText extends TextView {
+public class RichText extends ScrollView {
 
 
     private OnTextViewClickListener onTextViewClickListener;
-    private HtmlRemoteImageGetter.Adapter imageLoadAdapter;
-    private HtmlRemoteImageGetter imageGetter;
-    private HtmlTagHandler tagHandler;
+    private MoonHtmlRemoteImageGetter.Adapter imageLoadAdapter;
+    private MoonHtmlRemoteImageGetter imageGetter;
+    private MoonHtmlTagHandler tagHandler;
+    private TextView mTextView;
     /**
      * all images url
      */
@@ -37,24 +38,30 @@ public class RichText extends TextView {
 
     public RichText(Context context) {
         this(context, null);
+        init(context);
     }
 
     public RichText(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
+        init(context);
     }
 
     public RichText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context);
     }
 
 
-    private void init() {
+    private void init(Context context) {
+        mTextView = new TextView(context);
+        mTextView.setLayoutParams(new ViewGroup.LayoutParams(-1,-1));
         if (null == imageGetter) {
-            imageGetter = new HtmlRemoteImageGetter(this, null,imageLoadAdapter);
+            imageGetter = new MoonHtmlRemoteImageGetter(mTextView, null,imageLoadAdapter);
         }
         if (null == tagHandler) {
-            tagHandler = new HtmlTagHandler();
+            tagHandler = new MoonHtmlTagHandler();
         }
+        addView(mTextView);
     }
 
     /**
@@ -62,8 +69,8 @@ public class RichText extends TextView {
      *
      * @param text rich text
      */
-    public void setRichText(String text) {
-        init();
+    public RichText text(String text) {
+
         Spanned spanned = Html.fromHtml(text, imageGetter, tagHandler);
         SpannableStringBuilder spannableStringBuilder;
         if (spanned instanceof SpannableStringBuilder) {
@@ -109,17 +116,20 @@ public class RichText extends TextView {
                 spannableStringBuilder.setSpan(myURLSpan, spannableStringBuilder.getSpanStart(url), spannableStringBuilder.getSpanEnd(url), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
             }
         }
-        super.setText(spanned);
-        Linkify.addLinks(this, Linkify.WEB_URLS);
+        mTextView.setText(spanned);
+        Linkify.addLinks(mTextView, Linkify.WEB_URLS);
+        return this;
 
     }
 
-    public void setOnTextViewClickListener(OnTextViewClickListener onTextViewClickListener) {
+    public RichText textViewClickListener(OnTextViewClickListener onTextViewClickListener) {
         this.onTextViewClickListener = onTextViewClickListener;
+        return this;
     }
 
-    public void setImageLoadAdapter(HtmlRemoteImageGetter.Adapter imageLoadAdapter) {
+    public RichText imageLoadAdapter(MoonHtmlRemoteImageGetter.Adapter imageLoadAdapter) {
         this.imageLoadAdapter = imageLoadAdapter;
+        return this;
     }
 
     class ClickSpan extends ClickableSpan {

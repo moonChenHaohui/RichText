@@ -5,7 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -19,10 +18,11 @@ import java.net.URI;
 /**
  * Created by moon on 15/11/27.
  */
-public class HtmlRemoteImageGetter implements Html.ImageGetter {
+public class MoonHtmlRemoteImageGetter implements Html.ImageGetter {
     final TextView container;
     URI baseUri;
     final Adapter adapter;
+    private boolean fullImage = false;
     public static abstract class Adapter {
         /**
          * the replace Image
@@ -38,7 +38,13 @@ public class HtmlRemoteImageGetter implements Html.ImageGetter {
 
     }
 
-    public HtmlRemoteImageGetter(TextView t, String baseUrl,Adapter adapter) {
+    public MoonHtmlRemoteImageGetter fullImage(boolean b){
+        fullImage = b;
+        return this;
+    }
+
+
+    public MoonHtmlRemoteImageGetter(TextView t, String baseUrl, Adapter adapter) {
         this.container = t;
         this.adapter = adapter;
         if (baseUrl != null) {
@@ -98,12 +104,16 @@ public class HtmlRemoteImageGetter implements Html.ImageGetter {
 
             int width_dp = nDrawable.getIntrinsicWidth();
             int height_dp = nDrawable.getIntrinsicHeight();
-            int width_px = DensityUtil.dip2px(container.getContext(),width_dp);
-            int height_px = DensityUtil.dip2px(container.getContext(),height_dp);
+            int width_px = MoonDensityUtil.dip2px(container.getContext(),width_dp);
+            int height_px = MoonDensityUtil.dip2px(container.getContext(),height_dp);
             //too large,adapter screen,but the maxwidth can be zero.
             if (maxWidth > 0) {
                 height_px = width_px > maxWidth ? height_px * (width_px / maxWidth) : height_px;
                 width_px = width_px > maxWidth ? maxWidth : width_px;
+            }
+            if (fullImage){
+                height_px = height_px * (width_px / maxWidth);
+                width_px = maxWidth;
             }
             drawable.setBounds(0,0,width_px,height_px);
             setBounds(0,0,width_px,height_px);
