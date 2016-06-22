@@ -74,6 +74,11 @@ public class RichText extends ScrollView {
         addView(mTextView);
     }
 
+    public RichText fullImage(boolean b){
+        imageGetter.fullImage(b);
+        return this;
+    }
+
     /**
      * set rich text
      *
