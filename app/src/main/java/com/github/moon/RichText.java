@@ -23,14 +23,13 @@ import java.util.ArrayList;
 /**
  * Created by moon on 15/11/29.
  */
-public class RichText extends ScrollView {
+public class RichText extends TextView {
 
 
     private OnTextViewClickListener onTextViewClickListener;
     private MoonHtmlRemoteImageGetter.Adapter imageLoadAdapter;
     private MoonHtmlRemoteImageGetter imageGetter;
     private MoonHtmlTagHandler tagHandler;
-    private TextView mTextView;
     /**
      * all images url
      */
@@ -53,26 +52,15 @@ public class RichText extends ScrollView {
 
 
     private void init(Context context) {
-        mTextView = new TextView(context);
-        mTextView.setLayoutParams(new ViewGroup.LayoutParams(-1,-1));
+        setLayoutParams(new ViewGroup.LayoutParams(-1,-1));
         if (null == imageGetter) {
-            imageGetter = new MoonHtmlRemoteImageGetter(mTextView, null,imageLoadAdapter);
+            imageGetter = new MoonHtmlRemoteImageGetter(this, null,imageLoadAdapter);
         }
         if (null == tagHandler) {
             tagHandler = new MoonHtmlTagHandler();
         }
-        addView(mTextView);
     }
 
-    public TextView getTextView() {
-        return mTextView;
-    }
-
-    public void setTextView(TextView mTextView) {
-        removeView(mTextView);
-        this.mTextView = mTextView;
-        addView(mTextView);
-    }
 
     public RichText fullImage(boolean b){
         imageGetter.fullImage(b);
@@ -131,8 +119,8 @@ public class RichText extends ScrollView {
                 spannableStringBuilder.setSpan(myURLSpan, spannableStringBuilder.getSpanStart(url), spannableStringBuilder.getSpanEnd(url), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
             }
         }
-        mTextView.setText(spanned);
-        Linkify.addLinks(mTextView, Linkify.WEB_URLS);
+        setText(spanned);
+        Linkify.addLinks(this, Linkify.WEB_URLS);
         return this;
 
     }

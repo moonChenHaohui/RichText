@@ -112,7 +112,7 @@ public class MoonHtmlRemoteImageGetter implements Html.ImageGetter {
                 width_px = width_px > maxWidth ? maxWidth : width_px;
             }
             if (fullImage){
-                height_px = height_px * (width_px / maxWidth);
+                height_px = (int)((maxWidth * height_px)/ (width_px * 1.0));
                 width_px = maxWidth;
             }
             drawable.setBounds(0,0,width_px,height_px);
