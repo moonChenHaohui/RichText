@@ -64,6 +64,16 @@ public class RichText extends ScrollView {
         addView(mTextView);
     }
 
+    public TextView getTextView() {
+        return mTextView;
+    }
+
+    public void setTextView(TextView mTextView) {
+        removeView(mTextView);
+        this.mTextView = mTextView;
+        addView(mTextView);
+    }
+
     /**
      * set rich text
      *
